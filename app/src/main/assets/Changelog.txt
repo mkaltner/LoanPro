@@ -1,0 +1,13 @@
+Version 1.2 - 08/15/2012
+ * Fixed some issues related to decimals (calculation and display)
+ * Added first phase of Bi-Weekly support (informational, see note below)
+
+Note: Bi-Weekly information is available via Shift + Bi-Wkly (Term) button.  Information shown is the updated Term, Interest Savings, Total Interest, Total Principal and Total P+I.  Once in Bi-Weekly mode, continue pressing Term for further information.
+
+Version 1.1 - 07/25/2012
+ * Added support for Loan-to-Value (LTV)
+ * Added support for Private Mortgage Insurance (PMI)
+ * Fixed several issues related to setting and calculating price, loan amount and down payment.
+ * Removed analytics package and unused permissions.
+
+Note: LTV and PMI are accessible via the Shift button.

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">LoanPro</string>
+    <string name="app_title">LoanPro - Mortgage and Loan Calculator</string>
+    <string name="buttonAdd">+</string>
+    <string name="buttonBack">←</string>
+    <string name="buttonClear">Clear</string>
+    <string name="buttonDivide">÷</string>
+    <string name="buttonDownPayment">Down</string>
+    <string name="buttonEight">8</string>
+    <string name="buttonEquals">=</string>
+    <string name="buttonFive">5</string>
+    <string name="buttonFour">4</string>
+    <string name="buttonIns">Ins</string>
+    <string name="buttonInterest">Int</string>
+    <string name="buttonLoanAmount">Amt</string>
+    <string name="buttonMemory">M+</string>
+    <string name="buttonMultiply">x</string>
+    <string name="buttonNine">9</string>
+    <string name="buttonOne">1</string>
+    <string name="buttonPayment">Pmt</string>
+    <string name="buttonPercent">%</string>
+    <string name="buttonPeriod">.</string>
+    <string name="buttonPrice">Price</string>
+    <string name="buttonRecall">MR</string>
+    <string name="buttonSeven">7</string>
+    <string name="buttonShift">Shift</string>
+    <string name="buttonSix">6</string>
+    <string name="buttonSubtract">-</string>
+    <string name="buttonTax">Tax</string>
+    <string name="buttonTerm">Term</string>
+    <string name="buttonThousand">000</string>
+    <string name="buttonThree">3</string>
+    <string name="buttonTwo">2</string>
+    <string name="buttonZero">0</string>
+</resources>

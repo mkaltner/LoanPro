@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item type="id" name="buttonAdd" />
+    <item type="id" name="buttonBack" />
+    <item type="id" name="buttonClear" />
+    <item type="id" name="buttonDivide" />
+    <item type="id" name="buttonDownPayment" />
+    <item type="id" name="buttonEight" />
+    <item type="id" name="buttonEquals" />
+    <item type="id" name="buttonFive" />
+    <item type="id" name="buttonFour" />
+    <item type="id" name="buttonInsurance" />
+    <item type="id" name="buttonInterest" />
+    <item type="id" name="buttonLoanAmount" />
+    <item type="id" name="buttonMemory" />
+    <item type="id" name="buttonMultiply" />
+    <item type="id" name="buttonNine" />
+    <item type="id" name="buttonNothing" />
+    <item type="id" name="buttonOne" />
+    <item type="id" name="buttonPayment" />
+    <item type="id" name="buttonPercent" />
+    <item type="id" name="buttonPeriod" />
+    <item type="id" name="buttonPrice" />
+    <item type="id" name="buttonRecall" />
+    <item type="id" name="buttonSeven" />
+    <item type="id" name="buttonShift" />
+    <item type="id" name="buttonSix" />
+    <item type="id" name="buttonSubtract" />
+    <item type="id" name="buttonTax" />
+    <item type="id" name="buttonTerm" />
+    <item type="id" name="buttonThousand" />
+    <item type="id" name="buttonThree" />
+    <item type="id" name="buttonTwo" />
+    <item type="id" name="buttonZero" />
+    <item type="id" name="dialog_button" />
+    <item type="id" name="help" />
+    <item type="id" name="screen" />
+    <item type="id" name="screenFrequency" />
+    <item type="id" name="screenMode" />
+    <item type="id" name="screenType" />
+    <item type="id" name="screenView" />
+    <item type="id" name="tableLayout2" />
+</resources>
