@@ -1,3 +1,9 @@
+Version 1.0.0 - 2026-06-23
+ * Rebuilt LoanPro as a modern Android project.
+ * Improved entry, percent, backspace, clear, and invalid-result behavior.
+ * Added adaptive launcher icons and themed icon support.
+ * Removed legacy analytics, unused permissions, licensing checks, and paid/lite wrapper projects.
+
 Version 1.2 - 08/15/2012
  * Fixed some issues related to decimals (calculation and display)
  * Added first phase of Bi-Weekly support (informational, see note below)

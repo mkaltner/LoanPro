@@ -1,0 +1,6 @@
+Initial open-source rebuild release.
+
+- Restored the core LoanPro calculator.
+- Improved entry, percent, backspace, clear, and invalid-result behavior.
+- Added modern adaptive launcher icons and themed icon support.
+- Removed legacy analytics, unused permissions, licensing checks, and paid/lite wrapper projects.

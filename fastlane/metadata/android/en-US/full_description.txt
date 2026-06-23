@@ -1,0 +1,12 @@
+LoanPro is a fast financial calculator for running loan numbers without a spreadsheet.
+
+Enter any three of loan amount, payment, term, and interest rate, then tap the missing value to solve it. It works for mortgage scenarios, vehicle loans, credit cards, and other amortized loans.
+
+Features:
+
+- Calculate payment, loan amount, term, or interest rate
+- Supports taxes, insurance, down payment, LTV, PMI, and bi-weekly views
+- Quick calculator-style numeric entry
+- Percent, decimal, backspace, memory, and clear behavior tuned for repeated use
+- No ads, analytics, tracking, or network access
+

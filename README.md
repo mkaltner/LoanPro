@@ -1,17 +1,27 @@
 # LoanPro
 
-Recovered modernized Android project for `net.kaltner.LoanPro`.
+LoanPro is a fast Android loan calculator for mortgage, auto, credit, and personal loan scenarios.
 
-## Current State
+Enter any three of loan amount, payment, term, and interest rate, then tap the missing value to solve it. Additional mortgage-oriented views support taxes, insurance, down payment, LTV, PMI, and bi-weekly calculations.
+
+## Project
 
 - Single-module Android app under `:app`.
-- Java source comes from the archived `LoanProLib` source, flattened into package `net.kaltner.LoanPro` to match the 2023 APK/AAB.
-- UI resources are reconstructed from the 2023 `1.3.5` APK/AAB where available.
-- Version is set to `13` / `1.3.5`.
-- The app is treated as a free app. Paid/Lite wrapper projects and Google LVL licensing are not part of this rebuilt source tree.
+- Package/application ID: `net.kaltner.LoanPro`.
+- Current release: `1.0.0` (`versionCode` `10000`).
+- License: Apache-2.0.
+- No network permissions, analytics, ads, Play Services, Firebase, or crash-reporting SDKs.
 
-## Notes
+## Build
 
-- This is a recovery candidate, not yet a polished rebuild of the original Android Studio project.
-- The old `LoanPro`, `LoanProLite`, `LoanProLib`, and `LicenseVerificationLibrary` Eclipse/Ant project split was intentionally collapsed into a single modern app module.
+```bash
+ANDROID_HOME=$HOME/Android/Sdk ./gradlew --no-daemon :app:assembleDebug
+ANDROID_HOME=$HOME/Android/Sdk ./gradlew --no-daemon testDebugUnitTest
+```
+
+## Release Notes
+
+- Fastlane/F-Droid metadata lives under `fastlane/metadata/android/en-US/`.
+- `play_store_icon.png` and `fastlane/metadata/android/en-US/images/icon.png` are the 512px listing icon.
+- Real device screenshots still need to be captured before store/F-Droid submission.
 - Original signing keys are not included. Add release signing locally when needed.
