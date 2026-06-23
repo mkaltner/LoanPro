@@ -320,7 +320,7 @@ public class Calculator {
 
     		valueChanged = true;
     	}
-    	else if (valueChanged && currentView != Constants.VIEW_AMOUNT && currentView != Constants.VIEW_DOWN_PAYMENT && currentView != Constants.VIEW_DOWN_PAYMENT_PERCENT && currentView != Constants.VIEW_LOAN_TO_VALUE) {
+    	else if (valueChanged && shouldSolvePrice(currentView)) {
     		setCalculatedValues();
 
     		if (_payment.hasValue() && _term.hasValue() && _interest.hasValue()) {
@@ -675,7 +675,7 @@ public class Calculator {
 
     		valueChanged = true;
     	}
-    	else if (valueChanged && currentView != Constants.VIEW_PRICE && currentView != Constants.VIEW_DOWN_PAYMENT && currentView != Constants.VIEW_DOWN_PAYMENT_PERCENT && currentView != Constants.VIEW_LOAN_TO_VALUE) {
+    	else if (valueChanged && shouldSolveLoanAmount(currentView)) {
     		setCalculatedValues();
 
     		if (_payment.hasValue() && _term.hasValue() && _interest.hasValue()) {
@@ -712,7 +712,7 @@ public class Calculator {
 	    		entry.clear();
     		valueChanged = true;
     	}
-    	else if (valueChanged) {
+    	else if (valueChanged && shouldSolvePayment(currentView)) {
     		setCalculatedValues();
 
     		if ((_loanAmount.hasValue() || _price.hasValue()) && _term.hasValue() && _interest.hasValue()) {
@@ -765,7 +765,7 @@ public class Calculator {
 
     		valueChanged = true;
     	}
-    	else if (valueChanged) {
+    	else if (valueChanged && shouldSolveTerm(currentView)) {
     		setCalculatedValues();
 
     		if ((_loanAmount.hasValue() || _price.hasValue()) && _payment.hasValue() && _interest.hasValue()) {
@@ -884,7 +884,7 @@ public class Calculator {
 
     		valueChanged = true;
     	}
-    	else if (valueChanged) {
+    	else if (valueChanged && shouldSolveInterest(currentView)) {
     		setCalculatedValues();
 
     		if ((_loanAmount.hasValue() || _price.hasValue()) && _payment.hasValue() && _term.hasValue()) {
@@ -939,6 +939,43 @@ public class Calculator {
 
     static boolean isValidCalculatedResult(double value) {
         return !Double.isNaN(value) && !Double.isInfinite(value);
+    }
+
+    static boolean shouldSolvePrice(int currentView) {
+    	return currentView != Constants.VIEW_PRICE &&
+    		currentView != Constants.VIEW_AMOUNT &&
+    		currentView != Constants.VIEW_DOWN_PAYMENT &&
+    		currentView != Constants.VIEW_DOWN_PAYMENT_PERCENT &&
+    		currentView != Constants.VIEW_LOAN_TO_VALUE;
+    }
+
+    static boolean shouldSolveLoanAmount(int currentView) {
+    	return currentView != Constants.VIEW_AMOUNT &&
+    		currentView != Constants.VIEW_PRICE &&
+    		currentView != Constants.VIEW_DOWN_PAYMENT &&
+    		currentView != Constants.VIEW_DOWN_PAYMENT_PERCENT &&
+    		currentView != Constants.VIEW_LOAN_TO_VALUE;
+    }
+
+    static boolean shouldSolvePayment(int currentView) {
+    	return currentView != Constants.VIEW_PAYMENT_PI &&
+    		currentView != Constants.VIEW_PAYMENT_PITI &&
+    		currentView != Constants.VIEW_PAYMENT_IO;
+    }
+
+    static boolean shouldSolveTerm(int currentView) {
+    	return currentView != Constants.VIEW_TERM &&
+    		currentView != Constants.VIEW_TERM_MONTH &&
+    		currentView != Constants.VIEW_BI_TERM &&
+    		currentView != Constants.VIEW_BI_TOTAL_INT_SAVINGS &&
+    		currentView != Constants.VIEW_BI_TOTAL_INT &&
+    		currentView != Constants.VIEW_BI_TOTAL_PRINCIPAL &&
+    		currentView != Constants.VIEW_BI_TOTAL_PI;
+    }
+
+    static boolean shouldSolveInterest(int currentView) {
+    	return currentView != Constants.VIEW_INTEREST &&
+    		currentView != Constants.VIEW_INTEREST_MONTH;
     }
 
     private double getDownPaymentAmount() {
