@@ -7,6 +7,10 @@ package net.kaltner.LoanPro;
 //TODO: Consider BigDecimal for math operations
 
 public class Calculator {
+	static final String ERROR_GENERIC = "Error";
+	static final String ERROR_PAYMENT_TOO_LOW = "Pmt Low";
+	static final String ERROR_RATE_TOO_HIGH = "Rate High";
+
 	private DoubleContainer _price = null;
 	private DoubleContainer _downPayment = null;
 	private DoubleContainer _loanAmount = null;
@@ -37,6 +41,7 @@ public class Calculator {
 	private MainActivity mainActivity = null;
 
 	private int currentPrecision = 0;
+	private String errorText;
 
 	public Calculator(MainActivity main) {
 		mainActivity = main;
@@ -92,6 +97,10 @@ public class Calculator {
 		return screenValue;
 	}
 
+	public String getErrorText() {
+		return errorText;
+	}
+
 	public int getCurrentView() {
 		return currentView;
 	}
@@ -113,6 +122,8 @@ public class Calculator {
 	}
 
     public int addNumberToScreen(int number) {
+    	clearError();
+
     	if (newValue == false || clearScreen || entry.isPercent()) {
     		entry.startWithDigit(number);
     	}
@@ -134,6 +145,8 @@ public class Calculator {
     }
 
     public boolean addPeriodToScreen() {
+    	clearError();
+
     	if (newValue == false || clearScreen) {
     		entry.startWithDecimal();
     	}
@@ -232,6 +245,8 @@ public class Calculator {
     }
 
     public void clear() {
+    	clearError();
+
     	screenValue = 0.0d;
     	entry.clear();
     	numberMode = Constants.MODE_INT;
@@ -243,6 +258,8 @@ public class Calculator {
     }
 
     public void clearAll() {
+    	clearError();
+
     	newValue = false;
     	clearScreen = true;
     	entry.clear();
@@ -277,6 +294,8 @@ public class Calculator {
     }
 
     public int makePercent() {
+    	clearError();
+
     	double displayValue;
 
     	if (performingCalculation) {
@@ -304,6 +323,8 @@ public class Calculator {
     }
 
     public void setPrice() {
+	    clearError();
+
 	    	if (isEnteringNumber()) {
 	    		_price.setUserValue(screenValue);
 	    		newValue = false;
@@ -351,6 +372,8 @@ public class Calculator {
     }
 
     public void setDownPayment() {
+	    clearError();
+
 	    	if (isEnteringNumber()) {
     		double value = screenValue;
 
@@ -459,6 +482,8 @@ public class Calculator {
     }
 
     public void setTax() {
+	    clearError();
+
 	    	if (isEnteringNumber()) {
     		double value = screenValue;
 
@@ -519,6 +544,8 @@ public class Calculator {
     }
 
     public void setInsurance() {
+	    clearError();
+
 	    	if (isEnteringNumber()) {
     		double value = screenValue;
 
@@ -654,6 +681,8 @@ public class Calculator {
     }
 
     public void setLoanAmount() {
+	    clearError();
+
 	    	if (isEnteringNumber()) {
 	    		_loanAmount.setUserValue(screenValue);
 	    		newValue = false;
@@ -706,6 +735,8 @@ public class Calculator {
     }
 
     public void setPayment() {
+	    clearError();
+
 	    	if (isEnteringNumber()) {
 	    		_payment.setUserValue(screenValue);
 	    		newValue = false;
@@ -758,6 +789,8 @@ public class Calculator {
     }
 
     public void setTerm() {
+	    clearError();
+
 	    	if (isEnteringNumber() && !isShiftEnabled()) {
 	    		_term.setUserValue(screenValue);
 	    		newValue = false;
@@ -769,7 +802,10 @@ public class Calculator {
     		setCalculatedValues();
 
     		if ((_loanAmount.hasValue() || _price.hasValue()) && _payment.hasValue() && _interest.hasValue()) {
-    			double term = Finance.calculateTerm(getLoanAmount(), _payment.getValue(), _interest.getValue());
+    			double loanAmount = getLoanAmount();
+    			double payment = _payment.getValue();
+    			double interest = _interest.getValue();
+    			double term = Finance.calculateTerm(loanAmount, payment, interest);
 
         		_term.reset();
         		if (isValidCalculatedResult(term)) {
@@ -777,6 +813,7 @@ public class Calculator {
         			valueChanged = false;
         		}
         		else {
+        			setError(getInvalidTermError(loanAmount, payment, interest));
         			screenValue = term;
         			currentView = Constants.VIEW_TERM;
         			return;
@@ -861,10 +898,13 @@ public class Calculator {
     }
 
     public void setInterest() {
+    	clearError();
+
     	if (isEnteringNumber()) {
     		double value = screenValue;
 
     		if (value > 100) {
+    			setError(ERROR_RATE_TOO_HIGH);
     			screenValue = Double.NaN;
     			return;
     		}
@@ -892,9 +932,16 @@ public class Calculator {
     			double interestRate = Finance.calculateInterest(getLoanAmount(), _payment.getValue(), _term.getValue());
 
     			_interest.reset();
-    			_interest.setCalculatedValue(interestRate);
-
-        		valueChanged = false;
+    			if (isValidCalculatedResult(interestRate)) {
+    				_interest.setCalculatedValue(interestRate);
+        			valueChanged = false;
+    			}
+    			else {
+    				setError(ERROR_GENERIC);
+    				screenValue = interestRate;
+    				currentView = Constants.VIEW_INTEREST;
+    				return;
+    			}
     		}
     	}
 
@@ -941,6 +988,16 @@ public class Calculator {
         return !Double.isNaN(value) && !Double.isInfinite(value);
     }
 
+    static String getInvalidTermError(double loanAmount, double monthlyPayment, double interestPercent) {
+    	double monthlyInterest = interestPercent / 100.0d / 12.0d;
+
+    	if (loanAmount > 0 && monthlyPayment > 0 && monthlyPayment <= monthlyInterest * loanAmount) {
+    		return ERROR_PAYMENT_TOO_LOW;
+    	}
+
+    	return ERROR_GENERIC;
+    }
+
     static boolean shouldSolvePrice(int currentView) {
     	return currentView != Constants.VIEW_PRICE &&
     		currentView != Constants.VIEW_AMOUNT &&
@@ -976,6 +1033,14 @@ public class Calculator {
     static boolean shouldSolveInterest(int currentView) {
     	return currentView != Constants.VIEW_INTEREST &&
     		currentView != Constants.VIEW_INTEREST_MONTH;
+    }
+
+    private void setError(String text) {
+    	errorText = text;
+    }
+
+    private void clearError() {
+    	errorText = null;
     }
 
     private double getDownPaymentAmount() {

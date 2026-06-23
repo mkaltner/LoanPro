@@ -1,6 +1,7 @@
 package net.kaltner.LoanPro;
 
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
@@ -47,5 +48,17 @@ public class CalculatorTest {
 		assertFalse(Calculator.shouldSolveLoanAmount(Constants.VIEW_AMOUNT));
 		assertTrue(Calculator.shouldSolvePayment(Constants.VIEW_PRICE));
 		assertTrue(Calculator.shouldSolveTerm(Constants.VIEW_AMOUNT));
+	}
+
+	@Test
+	public void identifiesPaymentTooLowForTermSolve() {
+		assertEquals(Calculator.ERROR_PAYMENT_TOO_LOW, Calculator.getInvalidTermError(3000000.0d, 6000.0d, 6.0d));
+		assertEquals(Calculator.ERROR_PAYMENT_TOO_LOW, Calculator.getInvalidTermError(3000000.0d, 15000.0d, 6.0d));
+	}
+
+	@Test
+	public void usesGenericErrorForOtherInvalidTermInputs() {
+		assertEquals(Calculator.ERROR_GENERIC, Calculator.getInvalidTermError(0.0d, 6000.0d, 6.0d));
+		assertEquals(Calculator.ERROR_GENERIC, Calculator.getInvalidTermError(3000000.0d, 0.0d, 6.0d));
 	}
 }

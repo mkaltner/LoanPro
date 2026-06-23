@@ -702,7 +702,8 @@ public class MainActivity extends Activity {
 
 	private String formatScreenValue(Double value, int precision, boolean usePrecision, boolean showDecimal) {
 		if (value.isNaN() || value.isInfinite()) {
-			return "Error";
+			String errorText = calc.getErrorText();
+			return errorText != null ? errorText : "Error";
 		}
 
 		if (calc.getCurrentView() == Constants.VIEW_NUMBERS) {
