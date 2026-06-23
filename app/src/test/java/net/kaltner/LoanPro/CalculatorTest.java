@@ -54,6 +54,7 @@ public class CalculatorTest {
 	public void identifiesPaymentTooLowForTermSolve() {
 		assertEquals(Calculator.ERROR_PAYMENT_TOO_LOW, Calculator.getInvalidTermError(3000000.0d, 6000.0d, 6.0d));
 		assertEquals(Calculator.ERROR_PAYMENT_TOO_LOW, Calculator.getInvalidTermError(3000000.0d, 15000.0d, 6.0d));
+		assertEquals(Calculator.ERROR_PAYMENT_TOO_LOW, Calculator.getInvalidTermError(6000000.0d, 6000.0d, 6.0d));
 	}
 
 	@Test
