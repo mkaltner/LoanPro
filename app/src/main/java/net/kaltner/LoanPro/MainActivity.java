@@ -7,12 +7,16 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.graphics.Insets;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowInsets;
 import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.ScrollView;
@@ -77,6 +81,7 @@ public class MainActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+        applySystemBarInsets();
         
         calc = new Calculator(this);
         
@@ -98,6 +103,33 @@ public class MainActivity extends Activity {
 			showHelp();
 			Utils.savePreferenceBoolean(this, "initialHelp", true);
 		}
+    }
+
+    private void applySystemBarInsets() {
+        final View content = ((ViewGroup)findViewById(android.R.id.content)).getChildAt(0);
+        content.setOnApplyWindowInsetsListener(new View.OnApplyWindowInsetsListener() {
+            @Override
+            public WindowInsets onApplyWindowInsets(View view, WindowInsets windowInsets) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                    Insets insets = windowInsets.getInsets(WindowInsets.Type.systemBars());
+                    view.setPadding(insets.left, insets.top, insets.right, insets.bottom);
+                } else {
+                    applyLegacySystemBarInsets(view, windowInsets);
+                }
+
+                return windowInsets;
+            }
+        });
+        content.requestApplyInsets();
+    }
+
+    @SuppressWarnings("deprecation")
+    private void applyLegacySystemBarInsets(View view, WindowInsets windowInsets) {
+        view.setPadding(
+            windowInsets.getSystemWindowInsetLeft(),
+            windowInsets.getSystemWindowInsetTop(),
+            windowInsets.getSystemWindowInsetRight(),
+            windowInsets.getSystemWindowInsetBottom());
     }
     
     private void showHelp() {
