@@ -280,13 +280,13 @@ public class Calculator {
     	double displayValue;
 
     	if (performingCalculation) {
-    		screenValue = (storedValue * (screenValue / 100));
+    		screenValue = calculatePercentValue(storedValue, screenValue, true);
     		displayValue = screenValue;
     		newValue = false;
     	}
     	else {
     		displayValue = screenValue;
-    		screenValue /= 100;
+    		screenValue = calculatePercentValue(storedValue, screenValue, false);
     		newValue = true;
     		clearScreen = false;
     		currentView = Constants.VIEW_NUMBERS;
@@ -297,6 +297,10 @@ public class Calculator {
     	currentPrecision = 2;
 
     	return currentPrecision;
+    }
+
+    static double calculatePercentValue(double storedValue, double screenValue, boolean hasPendingMath) {
+    	return hasPendingMath ? storedValue * (screenValue / 100.0d) : screenValue / 100.0d;
     }
 
     public void setPrice() {
