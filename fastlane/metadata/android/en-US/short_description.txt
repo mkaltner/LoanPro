@@ -1,2 +1,1 @@
-Fast mortgage, auto, credit, and personal loan calculations.
-
+Fast mortgage, auto, credit, and personal loan calculations
