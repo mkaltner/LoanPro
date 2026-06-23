@@ -197,10 +197,10 @@ public class Calculator {
     	performingCalculation = false;
     }
 
-	    public int back() {
+    public int back() {
 	    	int precision = 2;
 
-	    	if (newValue && !clearScreen && currentView == Constants.VIEW_NUMBERS) {
+    	if (canBackspace()) {
 	    		String value = (buffer == null) ? getScreenBuffer() : buffer;
 
     		if (value.length() > 0) {
@@ -225,7 +225,11 @@ public class Calculator {
     		}
     	}
 
-    	return precision;
+	    	return precision;
+    }
+
+    public boolean canBackspace() {
+    	return isEnteringNumber() && buffer != null;
     }
 
     public void clear() {
@@ -292,8 +296,9 @@ public class Calculator {
 
     public void setPrice() {
 	    	if (isEnteringNumber()) {
-    		_price.setUserValue(screenValue);
-    		newValue = false;
+	    		_price.setUserValue(screenValue);
+	    		newValue = false;
+	    		buffer = null;
 
     		//_loanAmount.reset();
 
@@ -354,8 +359,9 @@ public class Calculator {
     			value = 100.0d - value;
     		}
 
-    		_downPayment.setUserValue(value);
-    		newValue = false;
+	    		_downPayment.setUserValue(value);
+	    		newValue = false;
+	    		buffer = null;
 
     		if (_price.isLocked()) {
     			_loanAmount.setValue(_price.getValue() - getDownPaymentAmount());
@@ -456,8 +462,9 @@ public class Calculator {
     			}
     		}
 
-    		_tax.setUserValue(value);
-    		newValue = false;
+	    		_tax.setUserValue(value);
+	    		newValue = false;
+	    		buffer = null;
     	}
 
     	if (currentView != Constants.VIEW_TAX_PERCENT && currentView != Constants.VIEW_TAX_ANNUAL && currentView != Constants.VIEW_TAX_MONTH) {
@@ -522,8 +529,9 @@ public class Calculator {
     			_insurance.setUserValue(value);
     		}
 
-    		newValue = false;
-    	}
+	    		newValue = false;
+	    		buffer = null;
+	    	}
 
     	int nextView = Constants.VIEW_CLEAR;
 
@@ -638,8 +646,9 @@ public class Calculator {
 
     public void setLoanAmount() {
 	    	if (isEnteringNumber()) {
-    		_loanAmount.setUserValue(screenValue);
-    		newValue = false;
+	    		_loanAmount.setUserValue(screenValue);
+	    		newValue = false;
+	    		buffer = null;
 
     		//_price.reset();
 
@@ -689,8 +698,9 @@ public class Calculator {
 
     public void setPayment() {
 	    	if (isEnteringNumber()) {
-    		_payment.setUserValue(screenValue);
-    		newValue = false;
+	    		_payment.setUserValue(screenValue);
+	    		newValue = false;
+	    		buffer = null;
     		valueChanged = true;
     	}
     	else if (valueChanged) {
@@ -740,8 +750,9 @@ public class Calculator {
 
     public void setTerm() {
 	    	if (isEnteringNumber() && !isShiftEnabled()) {
-    		_term.setUserValue(screenValue);
-    		newValue = false;
+	    		_term.setUserValue(screenValue);
+	    		newValue = false;
+	    		buffer = null;
 
     		valueChanged = true;
     	}
@@ -852,8 +863,9 @@ public class Calculator {
     			}
     		}
 
-    		_interest.setUserValue(value);
-    		newValue = false;
+	    		_interest.setUserValue(value);
+	    		newValue = false;
+	    		buffer = null;
 
     		valueChanged = true;
     	}

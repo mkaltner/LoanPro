@@ -243,11 +243,16 @@ public class MainActivity extends Activity {
     		return;
     	}
 
-    	boolean showDecimal = false;
-    	int precision = 0;
+	    	boolean showDecimal = false;
+	    	int precision = 0;
 
-		precision = calc.back();
-		int numberMode = calc.getNumberMode();
+	    	if (!calc.canBackspace()) {
+	    		updateScreen();
+	    		return;
+	    	}
+
+			precision = calc.back();
+			int numberMode = calc.getNumberMode();
 		showDecimal = (numberMode != Constants.MODE_INT && precision == 0);
 
     	updateScreen(precision, showDecimal);
