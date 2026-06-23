@@ -227,6 +227,10 @@ public class Calculator {
     	return entry.shouldShowDecimal();
     }
 
+    public double getEntryDisplayValue() {
+    	return entry.getDisplayValue(screenValue);
+    }
+
     public void clear() {
     	screenValue = 0.0d;
     	entry.clear();
@@ -273,11 +277,15 @@ public class Calculator {
     }
 
     public int makePercent() {
+    	double displayValue;
+
     	if (performingCalculation) {
     		screenValue = (storedValue * (screenValue / 100));
+    		displayValue = screenValue;
     		newValue = false;
     	}
     	else {
+    		displayValue = screenValue;
     		screenValue /= 100;
     		newValue = true;
     		clearScreen = false;
@@ -285,7 +293,7 @@ public class Calculator {
     	}
 
     	numberMode = Constants.MODE_PERCENT;
-    	entry.applyPercent();
+    	entry.applyPercent(displayValue);
     	currentPrecision = 2;
 
     	return currentPrecision;

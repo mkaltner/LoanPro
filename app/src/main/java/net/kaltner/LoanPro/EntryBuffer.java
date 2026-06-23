@@ -3,15 +3,18 @@ package net.kaltner.LoanPro;
 final class EntryBuffer {
 	private String text;
 	private boolean percent;
+	private Double percentDisplayValue;
 
 	void startWithDigit(int digit) {
 		text = Integer.toString(digit);
 		percent = false;
+		percentDisplayValue = null;
 	}
 
 	void startWithDecimal() {
 		text = "0.";
 		percent = false;
+		percentDisplayValue = null;
 	}
 
 	void appendDigit(int digit) {
@@ -30,6 +33,7 @@ final class EntryBuffer {
 
 		text += ".";
 		percent = false;
+		percentDisplayValue = null;
 		return true;
 	}
 
@@ -52,14 +56,16 @@ final class EntryBuffer {
 		text = Long.toString((long)getValue() * 1000);
 	}
 
-	void applyPercent() {
+	void applyPercent(double displayValue) {
 		text = null;
 		percent = true;
+		percentDisplayValue = displayValue;
 	}
 
 	void clear() {
 		text = null;
 		percent = false;
+		percentDisplayValue = null;
 	}
 
 	boolean isActive() {
@@ -122,5 +128,13 @@ final class EntryBuffer {
 		}
 
 		return Double.parseDouble(value);
+	}
+
+	double getDisplayValue(double fallback) {
+		if (percent && percentDisplayValue != null) {
+			return percentDisplayValue;
+		}
+
+		return fallback;
 	}
 }

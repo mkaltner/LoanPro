@@ -57,12 +57,30 @@ public class EntryBufferTest {
 		entry.appendDecimal();
 		entry.appendDigit(7);
 		entry.appendDigit(5);
-		entry.applyPercent();
+		entry.applyPercent(6.75d);
 
 		assertTrue(entry.isActive());
 		assertTrue(entry.isPercent());
 		assertFalse(entry.canBackspace());
 		assertEquals(Constants.MODE_PERCENT, entry.getNumberMode());
 		assertEquals(2, entry.getPrecision());
+		assertEquals(6.75d, entry.getDisplayValue(0.0675d), 0.0d);
+	}
+
+	@Test
+	public void decimalBackspaceRemovesVisibleDecimalBeforeDigits() {
+		EntryBuffer entry = new EntryBuffer();
+
+		entry.startWithDigit(3);
+		entry.appendDigit(0);
+		entry.appendDecimal();
+		assertTrue(entry.shouldShowDecimal());
+
+		entry.backspace();
+		assertEquals(30.0d, entry.getValue(), 0.0d);
+		assertFalse(entry.shouldShowDecimal());
+
+		entry.backspace();
+		assertEquals(3.0d, entry.getValue(), 0.0d);
 	}
 }

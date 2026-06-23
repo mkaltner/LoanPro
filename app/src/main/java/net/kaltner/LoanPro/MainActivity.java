@@ -199,7 +199,7 @@ public class MainActivity extends Activity {
     	}
 
     	if (calc.addPeriodToScreen()) {
-    		updateScreen(0, true);
+    		updateScreen(calc.getEntryPrecision(), true, calc.shouldShowEntryDecimal());
     	}
     }
 
@@ -707,7 +707,7 @@ public class MainActivity extends Activity {
 
 		if (calc.getCurrentView() == Constants.VIEW_NUMBERS) {
 			if (calc.getNumberMode() == Constants.MODE_PERCENT) {
-				return formatNumber(value, 2, 2, false);
+				return formatNumber(calc.getEntryDisplayValue(), 2, 2, false);
 			}
 
 			if (!usePrecision) {
