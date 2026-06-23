@@ -291,7 +291,7 @@ public class Calculator {
     }
 
     public void setPrice() {
-    	if (newValue) {
+	    	if (isEnteringNumber()) {
     		_price.setUserValue(screenValue);
     		newValue = false;
 
@@ -337,7 +337,7 @@ public class Calculator {
     }
 
     public void setDownPayment() {
-    	if (newValue) {
+	    	if (isEnteringNumber()) {
     		double value = screenValue;
 
     		if (numberMode == Constants.MODE_PERCENT) {
@@ -444,7 +444,7 @@ public class Calculator {
     }
 
     public void setTax() {
-    	if (newValue) {
+	    	if (isEnteringNumber()) {
     		double value = screenValue;
 
     		if (numberMode == Constants.MODE_PERCENT) {
@@ -503,7 +503,7 @@ public class Calculator {
     }
 
     public void setInsurance() {
-    	if (newValue) {
+	    	if (isEnteringNumber()) {
     		double value = screenValue;
 
     		if (numberMode == Constants.MODE_PERCENT) {
@@ -637,7 +637,7 @@ public class Calculator {
     }
 
     public void setLoanAmount() {
-    	if (newValue) {
+	    	if (isEnteringNumber()) {
     		_loanAmount.setUserValue(screenValue);
     		newValue = false;
 
@@ -688,7 +688,7 @@ public class Calculator {
     }
 
     public void setPayment() {
-    	if (newValue) {
+	    	if (isEnteringNumber()) {
     		_payment.setUserValue(screenValue);
     		newValue = false;
     		valueChanged = true;
@@ -739,7 +739,7 @@ public class Calculator {
     }
 
     public void setTerm() {
-    	if (newValue && !isShiftEnabled()) {
+	    	if (isEnteringNumber() && !isShiftEnabled()) {
     		_term.setUserValue(screenValue);
     		newValue = false;
 
@@ -835,7 +835,7 @@ public class Calculator {
     }
 
     public void setInterest() {
-    	if (newValue) {
+    	if (isEnteringNumber()) {
     		double value = screenValue;
 
     		if (value > 100) {
@@ -916,6 +916,10 @@ public class Calculator {
 
     	numberMode = Constants.MODE_DOUBLE;
     	currentPrecision = buffer.length() - decimalIndex - 1;
+    }
+
+    private boolean isEnteringNumber() {
+    	return newValue && currentView == Constants.VIEW_NUMBERS;
     }
 
     private double performCalculation(double value1, double value2, int action) {
