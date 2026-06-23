@@ -29,12 +29,12 @@ public class Utils
 		  .setPositiveButton("OK", null)
 		  .show();
     }
-	
+
 	public static void ShowToast(Context context, String message)
 	{
 		Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
 	}
-	
+
 	public static void ShowLongToast(Context context, String message)
 	{
 		Toast.makeText(context, message, Toast.LENGTH_LONG).show();
@@ -51,6 +51,13 @@ public class Utils
 		SharedPreferences settings = getDefaultSharedPreferences(context);
 		SharedPreferences.Editor editor = settings.edit();
 		editor.putFloat(key, value);
+		editor.commit();
+	}
+
+	public static void savePreferenceDouble(Context context, String key, double value) {
+		SharedPreferences settings = getDefaultSharedPreferences(context);
+		SharedPreferences.Editor editor = settings.edit();
+		editor.putString(key, Double.toString(value));
 		editor.commit();
 	}
 
@@ -75,6 +82,13 @@ public class Utils
 		editor.commit();
 	}
 
+	public static void removePreference(Context context, String key) {
+		SharedPreferences settings = getDefaultSharedPreferences(context);
+		SharedPreferences.Editor editor = settings.edit();
+		editor.remove(key);
+		editor.commit();
+	}
+
 	public static boolean getPreferenceBoolean(Context context, String key) {
 		SharedPreferences settings = getDefaultSharedPreferences(context);
 		return settings.getBoolean(key, false);
@@ -83,6 +97,26 @@ public class Utils
 	public static float getPreferenceFloat(Context context, String key) {
 		SharedPreferences settings = getDefaultSharedPreferences(context);
 		return settings.getFloat(key, Float.MIN_VALUE);
+	}
+
+	public static double getPreferenceDouble(Context context, String key) {
+		SharedPreferences settings = getDefaultSharedPreferences(context);
+		Object value = settings.getAll().get(key);
+
+		if (value instanceof String) {
+			try {
+				return Double.parseDouble((String)value);
+			}
+			catch (NumberFormatException e) {
+				return Double.NaN;
+			}
+		}
+
+		if (value instanceof Number) {
+			return ((Number)value).doubleValue();
+		}
+
+		return Double.NaN;
 	}
 
 	public static int getPreferenceInt(Context context, String key) {
@@ -99,7 +133,7 @@ public class Utils
 		SharedPreferences settings = getDefaultSharedPreferences(context);
 		return settings.getString(key, "");
 	}
-	
+
 	public static String readTextFile(InputStream inputStream) {
 		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 		byte buf[] = new byte[1024];
@@ -112,7 +146,7 @@ public class Utils
 			inputStream.close();
 		}
 		catch (IOException e) {
-			
+
 		}
 		return outputStream.toString();
 	}
