@@ -706,15 +706,18 @@ public class MainActivity extends Activity {
 			return "Error";
 		}
 
-		if (calc.getCurrentView() == Constants.VIEW_NUMBERS || showDecimal) {
-			return doubleToString(value, precision, true, showDecimal);
-		}
+			if (calc.getCurrentView() == Constants.VIEW_NUMBERS) {
+				if (!usePrecision) {
+					return formatNumber(value, currentPrecision, 6, false);
+				}
+				return doubleToString(value, precision, true, showDecimal);
+			}
 
-		if (!usePrecision) {
-			return formatNumber(value, currentPrecision, 6, false);
-		}
+			if (showDecimal) {
+				return doubleToString(value, precision, true, showDecimal);
+			}
 
-		switch(calc.getCurrentView()) {
+			switch(calc.getCurrentView()) {
 		case Constants.VIEW_INTEREST:
 		case Constants.VIEW_INTEREST_MONTH:
 		case Constants.VIEW_DOWN_PAYMENT_PERCENT:
@@ -729,9 +732,12 @@ public class MainActivity extends Activity {
 		case Constants.VIEW_BI_TERM:
 			return formatNumber(value, 0, 2, false);
 
-		case Constants.VIEW_CLEAR:
-		case Constants.VIEW_NONE:
-			return doubleToString(value, precision, true, showDecimal);
+			case Constants.VIEW_CLEAR:
+			case Constants.VIEW_NONE:
+				if (!usePrecision) {
+					return formatNumber(value, currentPrecision, 6, false);
+				}
+				return doubleToString(value, precision, true, showDecimal);
 
 		default:
 			return formatNumber(value, 2, 2, false);
