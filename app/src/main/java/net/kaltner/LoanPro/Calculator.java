@@ -197,11 +197,11 @@ public class Calculator {
     	performingCalculation = false;
     }
 
-    public int back() {
-    	int precision = 2;
+	    public int back() {
+	    	int precision = 2;
 
-    	if (newValue && !clearScreen) {
-    		String value = (buffer == null) ? getScreenBuffer() : buffer;
+	    	if (newValue && !clearScreen && currentView == Constants.VIEW_NUMBERS) {
+	    		String value = (buffer == null) ? getScreenBuffer() : buffer;
 
     		if (value.length() > 0) {
     			value = value.substring(0, value.length() - 1);
@@ -273,15 +273,14 @@ public class Calculator {
     	}
     }
 
-	    public int makePercent() {
-	    	int precision = 2;
-	    	if (performingCalculation) {
-	    		screenValue = (storedValue * (screenValue / 100));
-	    	}
-	    	else {
-	    		screenValue /= 100;
-    		precision = Math.min(currentPrecision + 2, 6);
-	    	}
+    public int makePercent() {
+    	int precision = 2;
+    	if (performingCalculation) {
+    		screenValue = (storedValue * (screenValue / 100));
+    	}
+    	else {
+    		screenValue /= 100;
+    	}
 
     	numberMode = Constants.MODE_PERCENT;
     	buffer = null;

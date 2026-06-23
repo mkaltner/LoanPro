@@ -718,7 +718,7 @@ public class MainActivity extends Activity {
 		case Constants.VIEW_TAX_PERCENT:
 		case Constants.VIEW_INSURANCE_PERCENT:
 		case Constants.VIEW_PMI_PERCENT:
-			return formatNumber(value, 0, 3, false);
+			return formatNumber(value, 2, 2, false);
 
 		case Constants.VIEW_TERM:
 		case Constants.VIEW_TERM_MONTH:
