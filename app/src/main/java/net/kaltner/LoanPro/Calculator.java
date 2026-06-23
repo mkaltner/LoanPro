@@ -285,7 +285,7 @@ public class Calculator {
     	numberMode = Constants.MODE_PERCENT;
     	buffer = null;
 
-    	newValue = false;
+    	newValue = !performingCalculation;
 
     	return precision;
     }
