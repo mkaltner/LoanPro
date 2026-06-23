@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Monochrome foreground — Android 13+ themed icons (system applies wallpaper tint) -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="108dp"
-    android:height="108dp"
-    android:viewportWidth="108"
-    android:viewportHeight="108">
-    <!-- All quadrants white; system tints the entire layer -->
-    <path android:fillColor="#FFFFFF" android:pathData="M21,21 L53,21 L53,53 L21,53 Z"/>
-    <path android:fillColor="#AAAAAA" android:pathData="M55,21 L87,21 L87,53 L55,53 Z"/>
-    <path android:fillColor="#AAAAAA" android:pathData="M21,55 L53,55 L53,87 L21,87 Z"/>
-    <path android:fillColor="#FFFFFF" android:pathData="M55,55 L87,55 L87,87 L55,87 Z"/>
+    android:width="108dp" android:height="108dp"
+    android:viewportWidth="108" android:viewportHeight="108">
+    <path android:fillColor="#FFFFFF" android:pathData="M18,18 L53,18 L53,53 L18,53 Z"/>
+    <path android:fillColor="#AAAAAA" android:pathData="M55,18 L90,18 L90,53 L55,53 Z"/>
+    <path android:fillColor="#AAAAAA" android:pathData="M18,55 L53,55 L53,90 L18,90 Z"/>
+    <path android:fillColor="#FFFFFF" android:pathData="M55,55 L90,55 L90,90 L55,90 Z"/>
 </vector>

@@ -1,17 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Color foreground vector — quadrant shapes only, no text (use bitmap for text) -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="108dp"
-    android:height="108dp"
-    android:viewportWidth="108"
-    android:viewportHeight="108">
-    <!-- Safe zone: 66x66dp centered in 108dp canvas (21dp margin each side) -->
-    <!-- $ : medium gray  -->
-    <path android:fillColor="#787878" android:pathData="M21,21 L53,21 L53,53 L21,53 Z"/>
-    <!-- P : dark charcoal -->
-    <path android:fillColor="#373737" android:pathData="M55,21 L87,21 L87,53 L55,53 Z"/>
-    <!-- % : medium-dark gray -->
-    <path android:fillColor="#505050" android:pathData="M21,55 L53,55 L53,87 L21,87 Z"/>
-    <!-- T : teal -->
-    <path android:fillColor="#00897B" android:pathData="M55,55 L87,55 L87,87 L55,87 Z"/>
+    android:width="108dp" android:height="108dp"
+    android:viewportWidth="108" android:viewportHeight="108">
+    <path android:fillColor="#787878" android:pathData="M18,18 L53,18 L53,53 L18,53 Z"/>
+    <path android:fillColor="#373737" android:pathData="M55,18 L90,18 L90,53 L55,53 Z"/>
+    <path android:fillColor="#505050" android:pathData="M18,55 L53,55 L53,90 L18,90 Z"/>
+    <path android:fillColor="#00897B" android:pathData="M55,55 L90,55 L90,90 L55,90 Z"/>
 </vector>
