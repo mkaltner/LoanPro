@@ -113,7 +113,7 @@ public class Calculator {
 	}
 
     public int addNumberToScreen(int number) {
-    	if (newValue == false || clearScreen) {
+    	if (newValue == false || clearScreen || (buffer == null && numberMode == Constants.MODE_PERCENT)) {
     		buffer = "" + number;
     		screenValue = parseEntryBuffer(buffer);
     		numberMode = Constants.MODE_INT;
@@ -198,10 +198,10 @@ public class Calculator {
     }
 
     public int back() {
-	    	int precision = 2;
+    	int precision = 2;
 
     	if (canBackspace()) {
-	    		String value = (buffer == null) ? getScreenBuffer() : buffer;
+    		String value = (buffer == null) ? getScreenBuffer() : buffer;
 
     		if (value.length() > 0) {
     			value = value.substring(0, value.length() - 1);
@@ -225,11 +225,23 @@ public class Calculator {
     		}
     	}
 
-	    	return precision;
+    	return precision;
     }
 
     public boolean canBackspace() {
     	return isEnteringNumber() && buffer != null;
+    }
+
+    public boolean canMakePercent() {
+    	return performingCalculation || isEnteringNumber();
+    }
+
+    public int getEntryPrecision() {
+    	return currentPrecision;
+    }
+
+    public boolean shouldShowEntryDecimal() {
+    	return numberMode != Constants.MODE_INT && currentPrecision == 0;
     }
 
     public void clear() {
@@ -278,20 +290,22 @@ public class Calculator {
     }
 
     public int makePercent() {
-    	int precision = 2;
     	if (performingCalculation) {
     		screenValue = (storedValue * (screenValue / 100));
+    		newValue = false;
     	}
     	else {
     		screenValue /= 100;
+    		newValue = true;
+    		clearScreen = false;
+    		currentView = Constants.VIEW_NUMBERS;
     	}
 
     	numberMode = Constants.MODE_PERCENT;
     	buffer = null;
+    	currentPrecision = 2;
 
-    	newValue = !performingCalculation;
-
-    	return precision;
+    	return currentPrecision;
     }
 
     public void setPrice() {

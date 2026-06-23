@@ -243,18 +243,13 @@ public class MainActivity extends Activity {
     		return;
     	}
 
-	    	boolean showDecimal = false;
-	    	int precision = 0;
-
 	    	if (!calc.canBackspace()) {
 	    		return;
 	    	}
 
-			precision = calc.back();
-			int numberMode = calc.getNumberMode();
-		showDecimal = (numberMode != Constants.MODE_INT && precision == 0);
+		calc.back();
 
-    	updateScreen(precision, showDecimal);
+	    	updateScreen(calc.getEntryPrecision(), true, calc.shouldShowEntryDecimal());
     }
 
     public void buttonMemory_onClick() {
@@ -309,8 +304,12 @@ public class MainActivity extends Activity {
     		return;
     	}
 
-    	int precision = calc.makePercent();
-    	updateScreen(precision, true);
+	    	if (!calc.canMakePercent()) {
+	    		return;
+	    	}
+
+	    	int precision = calc.makePercent();
+	    	updateScreen(precision, true);
     }
 
     public void buttonPrice_onClick() {
@@ -706,18 +705,22 @@ public class MainActivity extends Activity {
 			return "Error";
 		}
 
-			if (calc.getCurrentView() == Constants.VIEW_NUMBERS) {
-				if (!usePrecision) {
-					return formatNumber(value, currentPrecision, 6, false);
-				}
-				return doubleToString(value, precision, true, showDecimal);
+		if (calc.getCurrentView() == Constants.VIEW_NUMBERS) {
+			if (calc.getNumberMode() == Constants.MODE_PERCENT) {
+				return formatNumber(value, 2, 2, false);
 			}
 
-			if (showDecimal) {
-				return doubleToString(value, precision, true, showDecimal);
+			if (!usePrecision) {
+				return formatNumber(value, currentPrecision, 6, false);
 			}
+			return doubleToString(value, precision, true, showDecimal);
+		}
 
-			switch(calc.getCurrentView()) {
+		if (showDecimal) {
+			return doubleToString(value, precision, true, showDecimal);
+		}
+
+		switch(calc.getCurrentView()) {
 		case Constants.VIEW_INTEREST:
 		case Constants.VIEW_INTEREST_MONTH:
 		case Constants.VIEW_DOWN_PAYMENT_PERCENT:
@@ -732,12 +735,12 @@ public class MainActivity extends Activity {
 		case Constants.VIEW_BI_TERM:
 			return formatNumber(value, 0, 2, false);
 
-			case Constants.VIEW_CLEAR:
-			case Constants.VIEW_NONE:
-				if (!usePrecision) {
-					return formatNumber(value, currentPrecision, 6, false);
-				}
-				return doubleToString(value, precision, true, showDecimal);
+		case Constants.VIEW_CLEAR:
+		case Constants.VIEW_NONE:
+			if (!usePrecision) {
+				return formatNumber(value, currentPrecision, 6, false);
+			}
+			return doubleToString(value, precision, true, showDecimal);
 
 		default:
 			return formatNumber(value, 2, 2, false);
