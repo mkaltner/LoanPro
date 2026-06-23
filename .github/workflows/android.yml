@@ -13,7 +13,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   build:
@@ -52,14 +52,47 @@ jobs:
           path: app/build/outputs/apk/debug/*.apk
           if-no-files-found: error
 
-      - name: Build unsigned release APK
+      - name: Decode release keystore
         if: startsWith(github.ref, 'refs/tags/v')
+        env:
+          LOANPRO_RELEASE_KEYSTORE_BASE64: ${{ secrets.LOANPRO_RELEASE_KEYSTORE_BASE64 }}
+          LOANPRO_RELEASE_STORE_PASSWORD: ${{ secrets.LOANPRO_RELEASE_STORE_PASSWORD }}
+          LOANPRO_RELEASE_KEY_ALIAS: ${{ secrets.LOANPRO_RELEASE_KEY_ALIAS }}
+          LOANPRO_RELEASE_KEY_PASSWORD: ${{ secrets.LOANPRO_RELEASE_KEY_PASSWORD }}
+        run: |
+          test -n "$LOANPRO_RELEASE_KEYSTORE_BASE64"
+          test -n "$LOANPRO_RELEASE_STORE_PASSWORD"
+          test -n "$LOANPRO_RELEASE_KEY_ALIAS"
+          test -n "$LOANPRO_RELEASE_KEY_PASSWORD"
+          echo "$LOANPRO_RELEASE_KEYSTORE_BASE64" | base64 --decode > "$RUNNER_TEMP/loanpro-release.jks"
+
+      - name: Build signed release APK
+        if: startsWith(github.ref, 'refs/tags/v')
+        env:
+          LOANPRO_RELEASE_STORE_FILE: ${{ runner.temp }}/loanpro-release.jks
+          LOANPRO_RELEASE_STORE_PASSWORD: ${{ secrets.LOANPRO_RELEASE_STORE_PASSWORD }}
+          LOANPRO_RELEASE_KEY_ALIAS: ${{ secrets.LOANPRO_RELEASE_KEY_ALIAS }}
+          LOANPRO_RELEASE_KEY_PASSWORD: ${{ secrets.LOANPRO_RELEASE_KEY_PASSWORD }}
         run: ./gradlew --no-daemon assembleRelease
 
-      - name: Upload unsigned release APK
+      - name: Verify signed release APK
+        if: startsWith(github.ref, 'refs/tags/v')
+        run: |
+          apksigner="$(find "$ANDROID_HOME/build-tools" -name apksigner | sort -V | tail -n 1)"
+          "$apksigner" verify --verbose app/build/outputs/apk/release/*-release.apk
+          cp app/build/outputs/apk/release/*-release.apk "LoanPro-${GITHUB_REF_NAME}.apk"
+
+      - name: Upload signed release APK
         if: startsWith(github.ref, 'refs/tags/v')
         uses: actions/upload-artifact@v4
         with:
-          name: LoanPro-release-unsigned-apk
-          path: app/build/outputs/apk/release/*-unsigned.apk
+          name: LoanPro-release-signed-apk
+          path: LoanPro-${{ github.ref_name }}.apk
           if-no-files-found: error
+
+      - name: Attach signed APK to GitHub Release
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: LoanPro-${{ github.ref_name }}.apk
+          fail_on_unmatched_files: true

@@ -2,6 +2,12 @@ plugins {
     id "com.android.application"
 }
 
+def releaseStoreFile = System.getenv("LOANPRO_RELEASE_STORE_FILE")
+def releaseStorePassword = System.getenv("LOANPRO_RELEASE_STORE_PASSWORD")
+def releaseKeyAlias = System.getenv("LOANPRO_RELEASE_KEY_ALIAS")
+def releaseKeyPassword = System.getenv("LOANPRO_RELEASE_KEY_PASSWORD")
+def hasReleaseSigning = releaseStoreFile && releaseStorePassword && releaseKeyAlias && releaseKeyPassword
+
 android {
     namespace "net.kaltner.LoanPro"
     compileSdk 36
@@ -12,6 +18,25 @@ android {
         targetSdk 36
         versionCode 10000
         versionName "1.0.0"
+    }
+
+    signingConfigs {
+        if (hasReleaseSigning) {
+            release {
+                storeFile file(releaseStoreFile)
+                storePassword releaseStorePassword
+                keyAlias releaseKeyAlias
+                keyPassword releaseKeyPassword
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            if (hasReleaseSigning) {
+                signingConfig signingConfigs.release
+            }
+        }
     }
 }
 
