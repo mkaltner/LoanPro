@@ -12,14 +12,19 @@ import android.content.DialogInterface;
 import android.content.pm.PackageInfo;
 import android.content.res.AssetManager;
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.widget.Toast;
+
+import androidx.core.content.pm.PackageInfoCompat;
 
 public class Utils
 {
+	private static SharedPreferences getDefaultSharedPreferences(Context context) {
+		return context.getSharedPreferences(context.getPackageName() + "_preferences", Context.MODE_PRIVATE);
+	}
+
 	public static void ShowAlert(Context context, String message)
-    {
-    	new AlertDialog.Builder(context)
+	{
+		new AlertDialog.Builder(context)
 		  .setMessage(message)
 		  .setPositiveButton("OK", null)
 		  .show();
@@ -34,65 +39,65 @@ public class Utils
 	{
 		Toast.makeText(context, message, Toast.LENGTH_LONG).show();
 	}
-	
+
 	public static void savePreferenceBoolean(Context context, String key, boolean value) {
-		SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
+		SharedPreferences settings = getDefaultSharedPreferences(context);
 		SharedPreferences.Editor editor = settings.edit();
-        editor.putBoolean(key, value);
-        editor.commit();
+		editor.putBoolean(key, value);
+		editor.commit();
 	}
 
 	public static void savePreferenceFloat(Context context, String key, float value) {
-		SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
+		SharedPreferences settings = getDefaultSharedPreferences(context);
 		SharedPreferences.Editor editor = settings.edit();
-        editor.putFloat(key, value);
-        editor.commit();
+		editor.putFloat(key, value);
+		editor.commit();
 	}
-	
+
 	public static void savePreferenceInt(Context context, String key, int value) {
-		SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
+		SharedPreferences settings = getDefaultSharedPreferences(context);
 		SharedPreferences.Editor editor = settings.edit();
-        editor.putInt(key, value);
-        editor.commit();
+		editor.putInt(key, value);
+		editor.commit();
 	}
-	
+
 	public static void savePreferenceLong(Context context, String key, long value) {
-		SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
+		SharedPreferences settings = getDefaultSharedPreferences(context);
 		SharedPreferences.Editor editor = settings.edit();
-        editor.putLong(key, value);
-        editor.commit();
+		editor.putLong(key, value);
+		editor.commit();
 	}
-	
+
 	public static void savePreferenceString(Context context, String key, String value) {
-		SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
+		SharedPreferences settings = getDefaultSharedPreferences(context);
 		SharedPreferences.Editor editor = settings.edit();
-        editor.putString(key, value);
-        editor.commit();
+		editor.putString(key, value);
+		editor.commit();
 	}
-	
+
 	public static boolean getPreferenceBoolean(Context context, String key) {
-		SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
-        return settings.getBoolean(key, false);
+		SharedPreferences settings = getDefaultSharedPreferences(context);
+		return settings.getBoolean(key, false);
 	}
 
 	public static float getPreferenceFloat(Context context, String key) {
-		SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
-        return settings.getFloat(key, Float.MIN_VALUE);
+		SharedPreferences settings = getDefaultSharedPreferences(context);
+		return settings.getFloat(key, Float.MIN_VALUE);
 	}
-	
+
 	public static int getPreferenceInt(Context context, String key) {
-		SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
-        return settings.getInt(key, Integer.MIN_VALUE);
+		SharedPreferences settings = getDefaultSharedPreferences(context);
+		return settings.getInt(key, Integer.MIN_VALUE);
 	}
-	
+
 	public static long getPreferenceLong(Context context, String key) {
-		SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
-        return settings.getLong(key, Long.MIN_VALUE);
+		SharedPreferences settings = getDefaultSharedPreferences(context);
+		return settings.getLong(key, Long.MIN_VALUE);
 	}
-	
+
 	public static String getPreferenceString(Context context, String key) {
-		SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
-        return settings.getString(key, "");
+		SharedPreferences settings = getDefaultSharedPreferences(context);
+		return settings.getString(key, "");
 	}
 	
 	public static String readTextFile(InputStream inputStream) {
@@ -115,13 +120,13 @@ public class Utils
 	public static void showChangeLog(Context context) {
 		try {
 			int lastVersionCode = Utils.getPreferenceInt(context, "versionCode");
-			
+
 			PackageInfo pInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
-			int versionCode = pInfo.versionCode;
-			
+			int versionCode = (int) PackageInfoCompat.getLongVersionCode(pInfo);
+
 			if (lastVersionCode < versionCode) {
 				Utils.savePreferenceInt(context, "versionCode", versionCode);
-				
+
 				AssetManager am = context.getAssets();
 				InputStream is = am.open("Changelog.txt");
 				BufferedReader r = new BufferedReader(new InputStreamReader(is));
@@ -132,7 +137,7 @@ public class Utils
 				}
 				r.close();
 				is.close();
-				
+
 				AlertDialog.Builder builder = new AlertDialog.Builder(context);
 				builder.setTitle("Changelog")
 					.setMessage(message.toString())
@@ -147,7 +152,7 @@ public class Utils
 			}
 		}
 		catch(Exception e) {
-			
+
 		}
 	}
 }
