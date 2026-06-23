@@ -772,9 +772,15 @@ public class Calculator {
     			double term = Finance.calculateTerm(getLoanAmount(), _payment.getValue(), _interest.getValue());
 
         		_term.reset();
-        		_term.setCalculatedValue(term);
-
-        		valueChanged = false;
+        		if (isValidCalculatedResult(term)) {
+        			_term.setCalculatedValue(term);
+        			valueChanged = false;
+        		}
+        		else {
+        			screenValue = term;
+        			currentView = Constants.VIEW_TERM;
+        			return;
+        		}
     		}
     	}
 
@@ -929,6 +935,10 @@ public class Calculator {
     	default:
     		return Double.MIN_VALUE;
     	}
+    }
+
+    static boolean isValidCalculatedResult(double value) {
+        return !Double.isNaN(value) && !Double.isInfinite(value);
     }
 
     private double getDownPaymentAmount() {

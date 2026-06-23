@@ -27,6 +27,13 @@ public class FinanceTest {
 	}
 
 	@Test
+	public void roundTripsThirtyYearSixPercentMortgage() {
+		assertEquals(1798.65d, Finance.calculateMonthlyPayment(300000.0d, 30.0d, 6.0d), 0.01d);
+		assertEquals(6.0d, Finance.calculateInterest(300000.0d, 1798.65d, 30.0d), 0.01d);
+		assertEquals(30.0d, Finance.calculateTerm(300000.0d, 1798.65d, 6.0d), 0.01d);
+	}
+
+	@Test
 	public void supportsZeroInterest() {
 		assertEquals(1000.0d, Finance.calculateMonthlyPayment(12000.0d, 1.0d, 0.0d), 0.001d);
 		assertEquals(12000.0d, Finance.calculateLoanAmount(1000.0d, 1.0d, 0.0d), 0.001d);
@@ -37,6 +44,8 @@ public class FinanceTest {
 	@Test
 	public void rejectsImpossibleTermPayment() {
 		assertTrue(Double.isNaN(Finance.calculateTerm(100000.0d, 100.0d, 10.0d)));
+		assertTrue(Double.isNaN(Finance.calculateTerm(3000000.0d, 15000.0d, 6.0d)));
+		assertTrue(Double.isNaN(Finance.calculateTerm(3000000.0d, 6000.0d, 6.0d)));
 		assertTrue(Double.isNaN(Finance.calculateInterest(12000.0d, 500.0d, 1.0d)));
 	}
 }
