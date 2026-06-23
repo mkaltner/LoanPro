@@ -247,7 +247,6 @@ public class MainActivity extends Activity {
 	    	int precision = 0;
 
 	    	if (!calc.canBackspace()) {
-	    		updateScreen();
 	    		return;
 	    	}
 
