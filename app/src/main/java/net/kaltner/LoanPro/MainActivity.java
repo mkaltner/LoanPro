@@ -4,11 +4,9 @@ import java.io.InputStream;
 import java.text.DecimalFormat;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Insets;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
@@ -17,9 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowInsets;
-import android.webkit.WebView;
 import android.widget.Button;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 public class MainActivity extends Activity {
@@ -133,25 +129,10 @@ public class MainActivity extends Activity {
     }
 
     private void showHelp() {
-		AlertDialog.Builder alert = new AlertDialog.Builder(this);
-
 		Resources res = getResources();
 		InputStream stream = res.openRawResource(R.raw.quick_start_guide);
 		String data = Utils.readTextFile(stream);
-		data = Uri.encode(data);
-
-		alert.setTitle("Quick Start Guide");
-		// Set an EditText view to get user input
-		ScrollView sv = new ScrollView(this);
-		WebView wv = new WebView(this);
-		wv.setPadding(5,5,5,5);
-		sv.addView(wv);
-		wv.loadData(data, "text/html", "utf-8");
-		alert.setView(sv);
-
-		alert.setPositiveButton("OK", null);
-
-		alert.show();
+		Utils.showHtmlDialog(this, "Quick Start", data);
 	}
 
     /* Creates the menu items */

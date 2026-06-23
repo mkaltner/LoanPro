@@ -1,0 +1,89 @@
+<!doctype html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+	:root {
+		color-scheme: dark;
+		--bg: #0f1113;
+		--panel: #181b1d;
+		--text: #f3f5f6;
+		--muted: #bcc5c8;
+		--rule: #2c3336;
+		--teal: #00a99d;
+	}
+
+	* {
+		box-sizing: border-box;
+	}
+
+	body {
+		margin: 0;
+		padding: 0 0 18px;
+		background: var(--bg);
+		color: var(--text);
+		font-family: sans-serif;
+		font-size: 16px;
+		line-height: 1.45;
+	}
+
+	h2 {
+		margin: 10px 0 4px;
+		color: var(--text);
+		font-size: 20px;
+	}
+
+	h3 {
+		margin: 24px 0 6px;
+		padding-top: 18px;
+		border-top: 1px solid var(--rule);
+		color: var(--text);
+		font-size: 17px;
+	}
+
+	p {
+		margin: 0 0 12px;
+		color: var(--muted);
+	}
+
+	ul {
+		margin: 8px 0 16px;
+		padding-left: 24px;
+	}
+
+	li {
+		margin: 7px 0;
+	}
+
+	.version {
+		display: inline-block;
+		margin-bottom: 10px;
+		padding: 3px 9px;
+		border: 1px solid var(--teal);
+		border-radius: 4px;
+		color: var(--teal);
+		font-weight: 700;
+	}
+</style>
+</head>
+<body>
+<h2>LoanPro 1.0.0</h2>
+<p><span class="version">2026-06-23</span></p>
+<p>A modern open-source rebuild of the original LoanPro calculator.</p>
+
+<ul>
+	<li>Restored fast calculations for amount, payment, term, and interest.</li>
+	<li>Improved number entry, percent, decimal, backspace, clear, and repeated-use behavior.</li>
+	<li>Added useful invalid-result messages, including <b>Pmt Low</b> and <b>Rate High</b>.</li>
+	<li>Added adaptive launcher icons, themed icon support, and refreshed listing artwork.</li>
+	<li>Removed analytics, unused permissions, licensing checks, and legacy wrapper projects.</li>
+</ul>
+
+<h3>Privacy and Packaging</h3>
+<ul>
+	<li>No ads, analytics, tracking, network permission, Play Services, Firebase, or crash-reporting SDKs.</li>
+	<li>App state stays on device in Android app preferences.</li>
+	<li>Release metadata, privacy notes, changelog, and Apache-2.0 license are included for store/F-Droid review.</li>
+</ul>
+</body>
+</html>

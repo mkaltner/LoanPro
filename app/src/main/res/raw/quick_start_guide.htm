@@ -1,102 +1,161 @@
+<!doctype html>
 <html>
 <head>
-<title>Quick Start Guide</title>
-<style type="text/css">
-.header{font-weight:bold; color:#C0C0C0; font-size:11pt; font-face:Verdana;}
-.body{font-weight:normal; color:#C0C0C0; font-size:10pt; font-face:Verdana;}
-.bold{font-weight:bold; color:#C0C0C0; font-size:10pt; font-face:Verdana;}
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+	:root {
+		color-scheme: dark;
+		--bg: #0f1113;
+		--panel: #181b1d;
+		--text: #f3f5f6;
+		--muted: #bcc5c8;
+		--rule: #2c3336;
+		--teal: #00a99d;
+		--red: #7f101f;
+	}
+
+	* {
+		box-sizing: border-box;
+	}
+
+	body {
+		margin: 0;
+		padding: 0 0 18px;
+		background: var(--bg);
+		color: var(--text);
+		font-family: sans-serif;
+		font-size: 16px;
+		line-height: 1.45;
+	}
+
+	p {
+		margin: 0 0 14px;
+	}
+
+	.lede {
+		color: var(--muted);
+		font-size: 15px;
+	}
+
+	h2 {
+		margin: 24px 0 8px;
+		padding-top: 18px;
+		border-top: 1px solid var(--rule);
+		color: var(--text);
+		font-size: 19px;
+		line-height: 1.2;
+	}
+
+	h2:first-of-type {
+		margin-top: 10px;
+		padding-top: 0;
+		border-top: 0;
+	}
+
+	h3 {
+		margin: 18px 0 6px;
+		color: var(--text);
+		font-size: 16px;
+	}
+
+	ul,
+	ol {
+		margin: 8px 0 16px;
+		padding-left: 24px;
+	}
+
+	li {
+		margin: 6px 0;
+		padding-left: 2px;
+	}
+
+	b,
+	.key {
+		color: var(--text);
+		font-weight: 700;
+	}
+
+	.key {
+		display: inline-block;
+		padding: 1px 7px;
+		border: 1px solid var(--rule);
+		border-radius: 4px;
+		background: var(--panel);
+	}
+
+	.tip {
+		margin: 16px 0;
+		padding: 12px 14px;
+		border-left: 4px solid var(--teal);
+		background: var(--panel);
+		color: var(--muted);
+	}
+
+	.warn {
+		border-left-color: var(--red);
+	}
 </style>
 </head>
-<body bgcolor="#000000" class="body">
+<body>
+<p class="lede">LoanPro solves the missing value after you enter the other three: amount, payment, term, and interest rate. It is fast enough for quick mortgage, vehicle, credit, and personal-loan checks.</p>
 
-<p>
-Thank you for using LoanPro!<br /><br />
-Before using LoanPro, please read over this quick start guide to learn how to use the easy yet powerful features.
-</p>
-
-<p>
-<div class="header">Basic Usage</div>
-LoanPro has four main units of calculation; Loan Amount, Monthly Payment, Term and Interest.  You can calculate any one of these values by entering the three remaining values and clicking the button for the value you wish to calculate.  Read the following sections for examples of common calculations that you can perform with LoanPro.
-</p>
-
-<p>
-<div class="header">Monthly Mortgage Payment (P+I)</div>
-To find the monthly Principal and Interest payment on a 30-year fixed-rate loan of $150,000 at a rate of 4.75% interest, perform the following steps:
+<h2>Basic Flow</h2>
 <ol>
-<li>Hold the <b>Clear</b> button to clear all stored values.</li>
-<li>Enter <b>150000</b> and click the <b>Amt</b> button.</li>
-<li>Enter <b>30</b> and click the <b>Term</b> button.</li>
-<li>Enter <b>4.75</b> and click the <b>Int</b> button.</li>
-<li>Click the <b>Pmt</b> button to view your monthly payment of <b>$782.47</b>.</li>
+	<li>Hold <span class="key">Clear</span> to reset all stored values.</li>
+	<li>Enter a number, then tap the bucket it belongs to: <span class="key">Amt</span>, <span class="key">Pmt</span>, <span class="key">Term</span>, or <span class="key">Int</span>.</li>
+	<li>Repeat until three values are stored.</li>
+	<li>Tap the missing bucket to calculate it.</li>
 </ol>
-</p>
 
-<p>
-<div class="header">Loan Amount</div>
-Find out how much you can borrow if you can afford $150 per month and can get a 3-year loan at 7.9% interest:
-<ol>
-<li>Hold the <b>Clear</b> button to clear all stored values.</li>
-<li>Enter <b>150</b> and click the <b>Pmt</b> button.</li>
-<li>Enter <b>3</b> and click the <b>Term</b> button.</li>
-<li>Enter <b>7.9</b> and click the <b>Int</b> button.</li>
-<li>Click the <b>Amt</b> button to view your loan amount of <b>$4,793.82</b>.</li>
-</ol>
-</p>
+<div class="tip">After entering a manual value, tapping the same bucket again keeps that value. Tapping a different bucket solves that value from the current inputs.</div>
 
-<p>
-<div class="header">Number of Payments</div>
-Find out how long it will take to pay off your loan of $12,000 while making $200 payments at a 4.9% interest rate:
+<h2>Payment</h2>
+<p>Monthly payment for a 30-year, $150,000 loan at 4.75%:</p>
 <ol>
-<li>Hold the <b>Clear</b> button to clear all stored values.</li>
-<li>Enter <b>12000</b> and click the <b>Amt</b> button.</li>
-<li>Enter <b>200</b> and click the <b>Pmt</b> button.</li>
-<li>Enter <b>4.9</b> and click the <b>Int</b> button.</li>
-<li>Click the <b>Term</b> button to view your term of <b>5.75</b> years.</li>
-<li>Click the <b>Term</b> button again to view your term of <b>68.97</b> months.</li>
+	<li>Enter <b>150000</b>, tap <span class="key">Amt</span>.</li>
+	<li>Enter <b>30</b>, tap <span class="key">Term</span>.</li>
+	<li>Enter <b>4.75</b>, tap <span class="key">Int</span>.</li>
+	<li>Tap <span class="key">Pmt</span>: <b>$782.47</b>.</li>
 </ol>
-</p>
 
-<p>
-<div class="header">Interest Rate</div>
-To find the interest rate on a loan of $25,000 with a 5-year term and monthly payments of $500, perform the following steps:
+<h2>Loan Amount</h2>
+<p>Amount you can borrow with a $150 payment, 3-year term, and 7.9% rate:</p>
 <ol>
-<li>Hold the <b>Clear</b> button to clear all stored values.</li>
-<li>Enter <b>25000</b> and click the <b>Amt</b> button.</li>
-<li>Enter <b>500</b> and click the <b>Pmt</b> button.</li>
-<li>Enter <b>5</b> and click the <b>Term</b> button.</li>
-<li>Click the <b>Int</b> button to view your interest rate of <b>7.42</b>.</li>
+	<li>Enter <b>150</b>, tap <span class="key">Pmt</span>.</li>
+	<li>Enter <b>3</b>, tap <span class="key">Term</span>.</li>
+	<li>Enter <b>7.9</b>, tap <span class="key">Int</span>.</li>
+	<li>Tap <span class="key">Amt</span>: <b>$4,793.82</b>.</li>
 </ol>
-</p>
 
-<p>
-<div class="header">Principal, Interest, Tax and Insurance Payment (PITI)</div>
-To find the monthly PITI payment on a 30-year fixed-rate loan of $375,000 at a rate of 5.25% interest including 1.25% property tax and $800/year home owners insurance, perform the following steps:
+<h2>Term</h2>
+<p>Payoff time for a $12,000 loan with $200 payments at 4.9%:</p>
 <ol>
-<li>Hold the <b>Clear</b> button to clear all stored values.</li>
-<li>Enter <b>375000</b> and click the <b>Amt</b> button.</li>
-<li>Enter <b>30</b> and click the <b>Term</b> button.</li>
-<li>Enter <b>5.25</b> and click the <b>Int</b> button.</li>
-<li>Enter <b>1.25</b> and click the <b>Tax</b> button.</li>
-<li>Click the <b>Tax</b> button again to view the annual tax is <b>$4,687.50</b>.</li>
-<li>Enter <b>800</b> and click the <b>Ins</b> button.</li>
-<li>Click the <b>Pmt</b> button to view your P+I payment of <b>$2,070.76</b>.</li>
-<li>Click the <b>Pmt</b> button again to view your PITI payment of <b>$2,528.06</b>.</li>
+	<li>Enter <b>12000</b>, tap <span class="key">Amt</span>.</li>
+	<li>Enter <b>200</b>, tap <span class="key">Pmt</span>.</li>
+	<li>Enter <b>4.9</b>, tap <span class="key">Int</span>.</li>
+	<li>Tap <span class="key">Term</span>: <b>5.75</b> years.</li>
+	<li>Tap <span class="key">Term</span> again: <b>68.97</b> months.</li>
 </ol>
-</p>
 
-<p>
-<div class="header">Payment Based on Sales Price and Down Payment</div>
-To find the monthly payment on a 30-year fixed-rate purchase price of $275,000 at a rate of 4.5% interest including a down payment 20% down payment, perform the following steps:
+<h2>Interest Rate</h2>
+<p>Rate for a $25,000 loan, 5-year term, and $500 payment:</p>
 <ol>
-<li>Hold the <b>Clear</b> button to clear all stored values.</li>
-<li>Enter <b>275000</b> and click the <b>Price</b> button.</li>
-<li>Enter <b>20</b> and click the <b>Down</b> button.</li>
-<li>Click the <b>Down</b> button again to view the down payment of <b>$55,000</b>.</li>
-<li>Click the <b>Amt</b> button to view the loan amount of <b>$220,000</b>.</li>
-<li>Enter <b>30</b> and click the <b>Term</b> button.</li>
-<li>Enter <b>4.5</b> and click the <b>Int</b> button.</li>
-<li>Click the <b>Pmt</b>button to view your monthly payment of <b>$1,114.71</b>.</li>
+	<li>Enter <b>25000</b>, tap <span class="key">Amt</span>.</li>
+	<li>Enter <b>500</b>, tap <span class="key">Pmt</span>.</li>
+	<li>Enter <b>5</b>, tap <span class="key">Term</span>.</li>
+	<li>Tap <span class="key">Int</span>: <b>7.42%</b>.</li>
 </ol>
-</p>
+
+<h2>Mortgage Extras</h2>
+<h3>PITI</h3>
+<p>Add tax and insurance, then tap <span class="key">Pmt</span> repeatedly to cycle through P+I and PITI views.</p>
+
+<h3>Price, Down Payment, and LTV</h3>
+<p>Use <span class="key">Price</span> with <span class="key">Down</span> to calculate loan amount from a purchase price. Tap <span class="key">Down</span> again to cycle between percent and dollar views.</p>
+
+<h3>Bi-Weekly</h3>
+<p>Use <span class="key">Shift</span> + <span class="key">Term</span> for bi-weekly information. Continue pressing <span class="key">Term</span> to cycle through term, interest savings, total interest, total principal, and total P+I.</p>
+
+<div class="tip warn">If a payment is too low to cover interest, LoanPro shows <b>Pmt Low</b>. Increase the payment, lower the rate, or reduce the amount before solving term.</div>
 </body>
 </html>

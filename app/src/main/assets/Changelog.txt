@@ -1,19 +1,8 @@
 Version 1.0.0 - 2026-06-23
- * Rebuilt LoanPro as a modern Android project.
- * Improved entry, percent, backspace, clear, and invalid-result behavior.
- * Added adaptive launcher icons and themed icon support.
- * Removed legacy analytics, unused permissions, licensing checks, and paid/lite wrapper projects.
-
-Version 1.2 - 08/15/2012
- * Fixed some issues related to decimals (calculation and display)
- * Added first phase of Bi-Weekly support (informational, see note below)
-
-Note: Bi-Weekly information is available via Shift + Bi-Wkly (Term) button.  Information shown is the updated Term, Interest Savings, Total Interest, Total Principal and Total P+I.  Once in Bi-Weekly mode, continue pressing Term for further information.
-
-Version 1.1 - 07/25/2012
- * Added support for Loan-to-Value (LTV)
- * Added support for Private Mortgage Insurance (PMI)
- * Fixed several issues related to setting and calculating price, loan amount and down payment.
- * Removed analytics package and unused permissions.
-
-Note: LTV and PMI are accessible via the Shift button.
+ * Rebuilt LoanPro as a modern open-source Android app.
+ * Restored fast amount, payment, term, and interest calculations.
+ * Improved entry, percent, decimal, backspace, clear, and repeated-use behavior.
+ * Added useful invalid-result messages such as Pmt Low and Rate High.
+ * Added adaptive launcher icons, themed icon support, and refreshed listing artwork.
+ * Removed analytics, unused permissions, licensing checks, and legacy wrapper projects.
+ * Added release metadata, privacy notes, changelog, and Apache-2.0 license.

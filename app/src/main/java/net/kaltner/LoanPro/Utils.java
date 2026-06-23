@@ -1,10 +1,8 @@
 package net.kaltner.LoanPro;
 
 import java.io.ByteArrayOutputStream;
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -12,6 +10,11 @@ import android.content.DialogInterface;
 import android.content.pm.PackageInfo;
 import android.content.res.AssetManager;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.view.ViewGroup;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import androidx.core.content.pm.PackageInfoCompat;
@@ -29,6 +32,18 @@ public class Utils
 		  .setPositiveButton("OK", null)
 		  .show();
     }
+
+	public static void showHtmlDialog(Context context, String title, String html) {
+		new AlertDialog.Builder(context)
+			.setTitle(title)
+			.setView(createHtmlView(context, html))
+			.setPositiveButton("OK", null)
+			.show();
+	}
+
+	private static int dpToPx(Context context, int dp) {
+		return (int)(dp * context.getResources().getDisplayMetrics().density + 0.5f);
+	}
 
 	public static void ShowToast(Context context, String message)
 	{
@@ -162,31 +177,43 @@ public class Utils
 				Utils.savePreferenceInt(context, "versionCode", versionCode);
 
 				AssetManager am = context.getAssets();
-				InputStream is = am.open("Changelog.txt");
-				BufferedReader r = new BufferedReader(new InputStreamReader(is));
-				StringBuilder message = new StringBuilder();
-				String line;
-				while ((line = r.readLine()) != null) {
-				    message.append(line + "\r\n");
-				}
-				r.close();
-				is.close();
+				InputStream is = am.open("Changelog.htm");
+				String html = Utils.readTextFile(is);
 
-				AlertDialog.Builder builder = new AlertDialog.Builder(context);
-				builder.setTitle("Changelog")
-					.setMessage(message.toString())
+				AlertDialog alert = new AlertDialog.Builder(context)
+					.setTitle("What's New")
+					.setView(createHtmlView(context, html))
 				    .setCancelable(false)
-				    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-				    	public void onClick(DialogInterface dialog, int id) {
-				    		dialog.cancel();
-				    	}
-				    });
-				AlertDialog alert = builder.create();
+					.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int id) {
+							dialog.cancel();
+						}
+					})
+					.create();
 				alert.show();
 			}
 		}
 		catch(Exception e) {
 
 		}
+	}
+
+	private static FrameLayout createHtmlView(Context context, String html) {
+		WebView webView = new WebView(context);
+		webView.setBackgroundColor(Color.TRANSPARENT);
+		webView.setPadding(dpToPx(context, 18), dpToPx(context, 12), dpToPx(context, 18), 0);
+		webView.setScrollBarStyle(WebView.SCROLLBARS_INSIDE_OVERLAY);
+
+		WebSettings settings = webView.getSettings();
+		settings.setDefaultTextEncodingName("utf-8");
+		settings.setTextZoom(100);
+
+		FrameLayout container = new FrameLayout(context);
+		container.addView(webView, new FrameLayout.LayoutParams(
+			ViewGroup.LayoutParams.MATCH_PARENT,
+			ViewGroup.LayoutParams.MATCH_PARENT));
+		webView.loadDataWithBaseURL(null, html, "text/html", "utf-8", null);
+
+		return container;
 	}
 }
