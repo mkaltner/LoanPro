@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.2
+
+- Removed Android Gradle Plugin dependency metadata from release APKs for F-Droid reproducible build compatibility.
+
 ## 1.0.0
 
 - Rebuilt LoanPro as a modern open-source Android app.
